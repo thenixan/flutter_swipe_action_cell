@@ -15,6 +15,12 @@ class CellProgramOpenEvent {
   final bool trailing;
 }
 
+class CellCloseEvent {
+  CellCloseEvent({required this.key});
+
+  final Key key;
+}
+
 class PullLastButtonEvent {
   const PullLastButtonEvent({this.key, required this.isPullingOut});
 

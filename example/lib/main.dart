@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swipe_action_cell/core/store.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 
 void main() {
@@ -41,6 +42,14 @@ class _HomePageState extends State<HomePage> {
             }),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    SwipeActionStore.getInstance().bus.on().listen((event) {
+      print(event);
+    });
+    super.initState();
   }
 }
 

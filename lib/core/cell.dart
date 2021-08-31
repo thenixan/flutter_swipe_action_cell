@@ -653,6 +653,9 @@ class SwipeActionCellState extends State<SwipeActionCell>
       return controller.forward()
         ..whenCompleteOrCancel(() {
           ignoreActionButtonHit = false;
+          SwipeActionStore.getInstance()
+              .bus
+              .fire(CellCloseEvent(key: widget.key!));
         });
     }
   }
