@@ -56,7 +56,7 @@ class _SwipePullAlignButtonState extends State<SwipePullAlignButton>
     super.initState();
     whenFirstAction = widget.actionIndex == 0;
     alignment = trailing ? Alignment.centerRight : Alignment.centerLeft;
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _initAnim();
       _initCompletionHandler();
     });
@@ -93,7 +93,7 @@ class _SwipePullAlignButtonState extends State<SwipePullAlignButton>
   }
 
   void _listenEvent() {
-    ///Cell layer has judged the value of performsFirstActionWithFullSwipe
+    /// Cell layer has judged the value of performsFirstActionWithFullSwipe
     pullLastButtonSubscription = SwipeActionStore.getInstance()
         .bus
         .on<PullLastButtonEvent>()
@@ -141,15 +141,9 @@ class _SwipePullAlignButtonState extends State<SwipePullAlignButton>
             .fire(IgnorePointerEvent(ignore: true));
 
         if (data.firstActionWillCoverAllSpaceOnDeleting) {
-          _animToCoverCell();
-
-          ///and avoid layout jumping because of fast animation
-          await Future.delayed(const Duration(milliseconds: 50));
+          await _animToCoverCell();
         }
-        data.parentState.deleteWithAnim();
-
-        ///wait the animation to complete
-        await Future.delayed(const Duration(milliseconds: 401));
+        await data.parentState.deleteWithAnim();
       } else {
         if (action.closeOnTap) {
           data.parentState.closeWithAnim();
@@ -158,19 +152,19 @@ class _SwipePullAlignButtonState extends State<SwipePullAlignButton>
     };
   }
 
-  void _animToCoverCell() {
+  Future<void> _animToCoverCell() async {
     whenDeleting = true;
     _resetAnimationController(offsetController);
     animation = Tween<double>(
             begin: offsetX,
             end: trailing ? -data.contentWidth : data.contentWidth)
         .animate(offsetCurve)
-          ..addListener(() {
-            if (lockAnim) return;
-            offsetX = animation.value;
-            setState(() {});
-          });
-    offsetController?.forward();
+      ..addListener(() {
+        if (lockAnim) return;
+        offsetX = animation.value;
+        setState(() {});
+      });
+    await offsetController?.forward();
   }
 
   void _animToCoverPullActionContent() async {
@@ -208,13 +202,13 @@ class _SwipePullAlignButtonState extends State<SwipePullAlignButton>
 
     animation = Tween<double>(begin: offsetX, end: endOffset)
         .animate(widthFillActionContentCurve)
-          ..addListener(() {
-            if (lockAnim) return;
-            offsetX = animation.value;
-            alignment = Alignment.lerp(alignment, Alignment.center,
-                widthFillActionContentController!.value)!;
-            setState(() {});
-          });
+      ..addListener(() {
+        if (lockAnim) return;
+        offsetX = animation.value;
+        alignment = Alignment.lerp(alignment, Alignment.center,
+            widthFillActionContentController!.value)!;
+        setState(() {});
+      });
     widthFillActionContentController?.forward();
   }
 

@@ -9,7 +9,7 @@ import 'events.dart';
 import 'store.dart';
 import 'swipe_data.dart';
 
-///The normal swipe action button
+/// The normal swipe action button
 class SwipePullButton extends StatefulWidget {
   final int actionIndex;
   final bool trailing;
@@ -28,7 +28,7 @@ class SwipePullButton extends StatefulWidget {
 
 class _SwipePullButtonState extends State<SwipePullButton>
     with TickerProviderStateMixin {
-  ///The cell's total offset,not button's
+  /// The cell's total offset,not button's
   late double offsetX;
 
   late Alignment alignment;
@@ -65,7 +65,7 @@ class _SwipePullButtonState extends State<SwipePullButton>
     whenNestedActionShowing = false;
     whenFirstAction = widget.actionIndex == 0;
     alignment = trailing ? Alignment.centerLeft : Alignment.centerRight;
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _initAnim();
       _initCompletionHandler();
     });
@@ -79,11 +79,11 @@ class _SwipePullButtonState extends State<SwipePullButton>
     if (isPullingOut) {
       animation = Tween<double>(begin: offsetX, end: data.currentOffset)
           .animate(widthPullCurve)
-            ..addListener(() {
-              if (lockAnim) return;
-              offsetX = animation.value;
-              setState(() {});
-            });
+        ..addListener(() {
+          if (lockAnim) return;
+          offsetX = animation.value;
+          setState(() {});
+        });
       offsetController?.forward().whenComplete(() {
         whenActiveToOffset = true;
         whenPullingOut = true;
@@ -97,11 +97,11 @@ class _SwipePullButtonState extends State<SwipePullButton>
       final currentOffset = sumWidth * factor;
       animation = Tween<double>(begin: data.currentOffset, end: currentOffset)
           .animate(widthPullCurve)
-            ..addListener(() {
-              if (lockAnim) return;
-              offsetX = animation.value;
-              setState(() {});
-            });
+        ..addListener(() {
+          if (lockAnim) return;
+          offsetX = animation.value;
+          setState(() {});
+        });
       offsetController?.forward().whenComplete(() {
         whenActiveToOffset = true;
         whenPullingOut = false;
@@ -110,7 +110,7 @@ class _SwipePullButtonState extends State<SwipePullButton>
   }
 
   void _listenEvent() {
-    ///Cell layer has judged the value of performsFirstActionWithFullSwipe
+    /// Cell layer has judged the value of performsFirstActionWithFullSwipe
     pullLastButtonSubscription = SwipeActionStore.getInstance()
         .bus
         .on<PullLastButtonEvent>()
@@ -159,13 +159,8 @@ class _SwipePullButtonState extends State<SwipePullButton>
             .fire(IgnorePointerEvent(ignore: true));
 
         if (data.firstActionWillCoverAllSpaceOnDeleting) {
-          _animToCoverCell();
-
-          ///and avoid layout jumping because of fast animation
-          await Future.delayed(const Duration(milliseconds: 50));
+          await _animToCoverCell();
         }
-
-        ///wait the animation to complete
         await data.parentState.deleteWithAnim();
       } else {
         if (action.closeOnTap) {
@@ -176,7 +171,7 @@ class _SwipePullButtonState extends State<SwipePullButton>
     };
   }
 
-  void _animToCoverCell() {
+  Future<void> _animToCoverCell() async {
     whenDeleting = true;
     _resetAnimationController(offsetController);
     whenActiveToOffset = false;
@@ -184,12 +179,12 @@ class _SwipePullButtonState extends State<SwipePullButton>
             begin: offsetX,
             end: widget.trailing ? -data.contentWidth : data.contentWidth)
         .animate(widthPullCurve)
-          ..addListener(() {
-            if (lockAnim) return;
-            offsetX = animation.value;
-            setState(() {});
-          });
-    offsetController?.forward();
+      ..addListener(() {
+        if (lockAnim) return;
+        offsetX = animation.value;
+        setState(() {});
+      });
+    await offsetController?.forward();
   }
 
   void _animToCoverPullActionContent() async {
@@ -227,11 +222,11 @@ class _SwipePullButtonState extends State<SwipePullButton>
 
     animation = Tween<double>(begin: offsetX, end: endOffset)
         .animate(offsetFillActionContentCurve)
-          ..addListener(() {
-            if (lockAnim) return;
-            offsetX = animation.value;
-            setState(() {});
-          });
+      ..addListener(() {
+        if (lockAnim) return;
+        offsetX = animation.value;
+        setState(() {});
+      });
     offsetFillActionContentController?.forward();
   }
 
@@ -246,7 +241,7 @@ class _SwipePullButtonState extends State<SwipePullButton>
         whenNestedActionShowing;
 
     if (whenActiveToOffset && !whenNestedActionShowing) {
-      ///compute offset
+      /// compute offset
       final currentPullOffset = data.currentOffset;
       if (willPull) {
         offsetX = data.currentOffset;

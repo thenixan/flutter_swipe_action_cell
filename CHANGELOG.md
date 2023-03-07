@@ -1,3 +1,24 @@
+## [3.1.0] - Adjust flutter 3.7
+## [3.0.7] - Fix backgroundColor.
+## [3.0.6] - Fix lints.
+## [3.0.5] - Fix lints.
+## [3.0.4] - Add gesture settings for gestures.
+## [3.0.3] - Remove bad code
+## [3.0.2] - Fix issue : size not correct when change widget size and action button showing 
+## [3.0.1] - Add SwipeActionNavigatorObserver to close opening cell when navigator changes routes
+## [3.0.0] - Support flutter 3
+## [2.2.3] - Fix performance issue #44 (Avoid unnecessary rebuild all cells when scrolling).
+## [2.2.2] - Ignore the null-aware operator for flutter 3
+## [2.2.1] - Fix performance issue #44 (Avoid unnecessary rebuild all cells when scrolling).
+## [2.2.0] - Bug fix
+## [2.1.8] - Bug fix
+## [2.1.7] - [Breaking change] Change SwipeActionController isEditing from bool to ValueNotifier<bool>
+## [2.1.6] - Fix edit mode controller event identifier and add customized selectedForegroundColor
+## [2.1.5] - Fix #40 issue
+## [2.1.4] - Repair: open other controllers with the same index under multiple controllers
+## [2.1.3] - Breaking change! Make performsFirstActionWithFullSwipe can control leading or trailing actions separately
+## [2.1.3-beta] - Make performsFirstActionWithFullSwipe can control leading or trailing actions separately
+## [2.1.2] - Simply format code
 ## [2.1.1] - Ignore drag gestures if no actions provided
 ## [2.1.0] - simple update
 ## [2.0.8] - let controller can open cell programmatically

@@ -1,24 +1,32 @@
 ### Language:
 
 [English](https://github.com/luckysmg/flutter_swipe_action_cell/blob/master/README.md)
-|[中文简体](https://github.com/luckysmg/flutter_swipe_action_cell/blob/master/README-CN.md)
+| [中文简体](https://github.com/luckysmg/flutter_swipe_action_cell/blob/master/README-CN.md)
 
 # flutter_swipe_action_cell
 
-A package that can give you a cell that can be swiped ,effect is like iOS native
+A package that can give you a cell that can be swiped, effect is like iOS native
 
-### If you like this package,you can give me a star😀.The more stars this project has,the more time I will take in the project😀
+### If you like this package, you can give me a star😀. The more stars this project has, the more time I will speant in the project😀
+
+
+### Donate:
+
+Alipay | Wechat | 
+-------- | -----
+<img src="https://raw.githubusercontent.com/luckysmg/daily_images/main/flutter_swipe_action_cell_images/alipay.JPG?raw=true" width="250"  alt=""/> | <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/wechat.JPG?raw=true" width="250"  alt=""/>
+
 
 ## Get started
 
-#### The null safety is available from 2.0.0 !
+### 3.0.0 and later version is for flutter 3
 
 ##### pub home page click here: [pub](https://pub.dev/packages/flutter_swipe_action_cell)
 
 ##### install:
 
 ```yaml
-flutter_swipe_action_cell: ^2.1.1
+flutter_swipe_action_cell: ^3.1.0
 ```  
 
 ## 1.Preview：
@@ -35,7 +43,7 @@ Effect like WeChat(confirm delete) | Automatically adjust the button width
 -------- | -----
 <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/6.gif?raw=true" width="250"  alt=""/> | <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/7.gif?raw=true" width="250"  alt=""/>
 
-Effect like WeChat collection Page:Customize your button shape | 
+Effect like WeChat collection Page: Customize your button shape | 
 -------- |
 
 <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/9.gif?raw=true" width="300"  alt=""/>
@@ -56,15 +64,15 @@ And you can find full example code in [example page](https://pub.dev/packages/fl
 
 ## Examples
 
-- ## Example 1:Simple delete the item in ListView
+- ## Example 1: Simple delete the item in ListView
 
  <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/1.gif?raw=true" width="250"  alt=""/>
 
-- #### Tip:put the code in the itemBuilder of your ListView
+- #### Tip: put the code in the itemBuilder of your ListView
 
 ```dart
  SwipeActionCell(
-      key: ObjectKey(list[index]),///this key is necessary
+      key: ObjectKey(list[index]), /// this key is necessary
       trailingActions: <SwipeAction>[
         SwipeAction(
             title: "delete",
@@ -82,19 +90,18 @@ And you can find full example code in [example page](https://pub.dev/packages/fl
     );
 ```
 
-- ## Example 2:Perform first action when full swipe
+- ## Example 2: Perform first action when full swipe
 
   <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/2.gif?raw=true" width="250"  alt=""/>
 
  ```dart
  SwipeActionCell(
-       ///this key is necessary
+       /// this key is necessary
        key: ObjectKey(list[index]),
- 
-       ///this is the same as iOS native
-       performsFirstActionWithFullSwipe: true,
        trailingActions: <SwipeAction>[
          SwipeAction(
+             /// this is the same as iOS native
+             performsFirstActionWithFullSwipe: true,
              title: "delete",
              onTap: (CompletionHandler handler) async {
                list.removeAt(index);
@@ -110,21 +117,20 @@ And you can find full example code in [example page](https://pub.dev/packages/fl
      );
  ```
 
-- ## Example 3:Delete with animation
+- ## Example 3: Delete with animation
 
    <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/3.gif?raw=true" width="250"  alt=""/>
 
  ```dart
 SwipeActionCell(
       key: ObjectKey(list[index]),
-      performsFirstActionWithFullSwipe: true,
       trailingActions: <SwipeAction>[
         SwipeAction(
             title: "delete",
             onTap: (CompletionHandler handler) async {
               
               /// await handler(true) : will delete this row
-              ///And after delete animation,setState will called to 
+              /// And after delete animation,setState will called to 
               /// sync your data source with your UI
 
               await handler(true);
@@ -141,7 +147,7 @@ SwipeActionCell(
     );
  ```
 
-  - ## Example 4:More than one action: 
+  - ## Example 4: More than one action: 
  
   
    <img src="https://github.com/luckysmg/daily_images/blob/main/flutter_swipe_action_cell_images/4.gif?raw=true" width="250"  alt=""/>
@@ -149,8 +155,6 @@ SwipeActionCell(
  ```dart
 SwipeActionCell(
       key: ObjectKey(list[index]),
-
-      performsFirstActionWithFullSwipe: true,
       trailingActions: <SwipeAction>[
         SwipeAction(
             title: "delete",
@@ -165,7 +169,7 @@ SwipeActionCell(
             widthSpace: 120,
             title: "popAlert",
             onTap: (CompletionHandler handler) async {
-              ///false means that you just do nothing,it will close
+              /// false means that you just do nothing,it will close
               /// action buttons by default
               handler(false);
               showCupertinoDialog(
@@ -203,11 +207,10 @@ SwipeActionCell(
 ```dart
 return SwipeActionCell(
       key: ValueKey(list[index]),
-      performsFirstActionWithFullSwipe: true,
       trailingActions: <SwipeAction>[
         SwipeAction(
           ///
-          ///This attr should be passed to first action
+          /// This attr should be passed to first action
           ///
           nestedAction: SwipeNestedAction(title: "确认删除"),
           title: "删除",
@@ -221,7 +224,7 @@ return SwipeActionCell(
         SwipeAction(
             title: "置顶",
             onTap: (CompletionHandler handler) async {
-              ///false means that you just do nothing,it will close
+              /// false means that you just do nothing,it will close
               /// action buttons by default
               handler(false);
             },
@@ -243,41 +246,41 @@ return SwipeActionCell(
 /// To controller edit mode
 SwipeActionEditController controller;
 
-///在initState
+/// 在initState
 @override
   void initState() {
     super.initState();
     controller = SwipeActionController();
   }
-///To get the selected rows index
+/// To get the selected rows index
 List<int> selectedIndexes = controller.getSelectedIndexes();
 
 
-///open cell
+/// open cell
 controller.openCellAt(index: 2, trailing: true, animated: true);
 
-///close cell
+/// close cell
 controller.closeAllOpenCell();
 
-///toggleEditingMode
+/// toggleEditingMode
 controller.toggleEditingMode()
 
-///startEditMode
+/// startEditMode
 controller.startEditingMode()
 
-///stopEditMode
+/// stopEditMode
 controller.stopEditingMode()
 
-///select cell
+/// select cell
 controller.selectCellAt(indexPaths:[1,2,3])
 
 controller.deselectCellAt(indexPaths:[1,2,3])
 
-///pass your data length to selectedAll
+/// pass your data length to selectedAll
 controller.selectAll(30
 )
 
-///deselect all cell
+/// deselect all cell
 controller deselectAll()
 
 ListView.builder(
@@ -290,14 +293,15 @@ ListView.builder(
 
  Widget _item(int index) {
      return SwipeActionCell(
-       ///controller
+       /// controller
        controller: controller,
-       ///index is required if you want to enter edit mode
+       /// index is required if you want to enter edit mode
        index: index,
-       performsFirstActionWithFullSwipe: true,
        key: ValueKey(list[index]),
        trailingActions: [
          SwipeAction(
+             /// this is the same as iOS native
+             performsFirstActionWithFullSwipe: true,
              onTap: (handler) async {
                await handler(true);
                list.removeAt(index);
@@ -327,8 +331,7 @@ Widget _item(int index) {
       trailingActions: [
         SwipeAction(
             nestedAction: SwipeNestedAction(
-              ///customize your nested action content
-
+              /// customize your nested action content
               content: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
@@ -353,10 +356,10 @@ Widget _item(int index) {
               ),
             ),
 
-            ///you should set the default  bg color to transparent
+            /// you should set the default  bg color to transparent
             color: Colors.transparent,
 
-            ///set content instead of title of icon
+            /// set content instead of title of icon
             content: _getIconButton(Colors.red, Icons.delete),
             onTap: (handler) async {
               list.removeAt(index);
@@ -383,7 +386,7 @@ Widget _item(int index) {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
 
-        ///set you real bg color in your content
+        /// set you real bg color in your content
         color: color,
       ),
       child: Icon(
@@ -395,9 +398,20 @@ Widget _item(int index) {
 
 ```
 
+
+- ## Example 8：Close opening cell when navigator change its routes.
+Add a `SwipeActionNavigatorObserver` in `MaterialApp`'s `navigatorObservers`
+```dart
+return MaterialApp(
+  navigatorObservers: [SwipeActionNavigatorObserver()],
+  ....
+);
+
+```
+
 # About CompletionHandler in onTap function of SwipeAction
 
-it means how you want control this cell after you tap it. If you don't want any animation,just don't call it and update
+it means how you want control this cell after you tap it. If you don't want any animation, just don't call it and update
 your data and UI with setState()
 
 If you want some animation:
@@ -407,19 +421,11 @@ If you want some animation:
 - await handler(true) : Means that you will await the animation to complete(you should call setState after it so that
   you will get an animation)
 
-- handler(false) : means it will not delete this row.By default,it just close this cell's action buttons.
+- handler(false) : means it will not delete this row.By default, it just close this cell's action buttons.
 
 - await handler(false) : means it will wait the close animation to complete.
 
 # About all parameter:
 
-I wrote them in my code with dart doc comments.You can read them in source code.
-
-# Previous Bug List with related issues
-
-- [issue7](https://github.com/luckysmg/flutter_swipe_action_cell/issues/7) (SwipeActionEditController can't delete cells
-  correctly) --> fixed after v1.1.0
-
- 
-
+I wrote them in my code with dart doc comments. You can read them in source code.
 
